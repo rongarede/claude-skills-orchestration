@@ -1,23 +1,20 @@
 # Claude Skills: Orchestration
 
-A collection of 21 Claude Code skills for agent orchestration, multi-AI collaboration, skill management, and automation.
+A collection of 18 Claude Code skills for agent orchestration, multi-AI collaboration, skill management, and automation.
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
-| `agent-browser` | Browser interaction automation agent |
 | `agent-memory` | Associative memory system with BM25 + 3D scoring |
 | `auto-iterate` | Karpathy Loop autonomous iteration framework |
 | `collaborating-hub` | Multi-AI CLI collaboration router (Codex/Gemini/Kimi) |
 | `collaborating-with-codex` | Codex CLI backend |
 | `collaborating-with-gemini` | Gemini CLI backend |
 | `collaborating-with-kimi` | Kimi CLI backend |
-| `cybernetics-design-philosophy` | Wiener cybernetics guide for agent system design |
 | `experience-evolution` | Experience accumulation and self-evolution system |
 | `exploration` | CTO challenge mode: question approach before coding |
 | `gate-loop-orchestrator` | Generic gate-loop checkpoint mechanism |
-| `makepad-evolution` | Self-improving skill system with feedback loops |
 | `reflex-audit` | Reflex chain audit and improvement |
 | `reflex-fuzz` | Reflex system fuzz testing and iteration |
 | `skill-authoring` | Skill authoring standards and best practices |
