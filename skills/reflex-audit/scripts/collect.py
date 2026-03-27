@@ -9,9 +9,9 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
-STATS_PATH = Path(os.path.expanduser("~/mem/mem/workflows/trigger-stats.json"))
-RUNS_DIR = Path(os.path.expanduser("~/mem/mem/workflows/runs"))
-TRIGGER_MAP = Path(os.path.expanduser("~/mem/mem/workflows/trigger-map.md"))
+STATS_PATH = Path(os.path.expanduser("~/.claude/memory/workflows/trigger-stats.json"))
+RUNS_DIR = Path(os.path.expanduser("~/.claude/memory/workflows/runs"))
+TRIGGER_MAP = Path(os.path.expanduser("~/.claude/memory/workflows/trigger-map.md"))
 
 REFLECTIONS = [
     "research", "explore", "implement", "document", "audit",

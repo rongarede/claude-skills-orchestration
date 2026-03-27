@@ -340,11 +340,11 @@ class TestCrossAgentCLI:
             shutil.rmtree(tmp_b, ignore_errors=True)
 
     def test_cli_cross_agent_flag(self):
-        """CLI --cross-agent 选项：自动扫描 ~/mem/mem/agents/*/*/ 下所有 store。
+        """CLI --cross-agent 选项：自动扫描 ~/.claude/memory/agents/*/*/ 下所有 store。
 
         此测试只验证 CLI 不报错并返回结果（或"未找到"提示），不验证具体内容。
         """
-        agents_base = Path(os.path.expanduser("~/mem/mem/agents"))
+        agents_base = Path(os.path.expanduser("~/.claude/memory/agents"))
 
         stdout, stderr, rc = _run_cli(
             "retrieve",

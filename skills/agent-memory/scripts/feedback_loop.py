@@ -187,7 +187,7 @@ def score_workflow_run(
 
 def get_path_efficiency(
     workflow_name: str,
-    store_path: str = "~/mem/mem/workflows/runs/",
+    store_path: str = "~/.claude/memory/workflows/runs/",
 ) -> dict:
     """统计某 workflow 模板的历史效率。
 
@@ -247,7 +247,7 @@ def get_path_efficiency(
 
 def check_escalation(
     pattern: str,
-    store_path: str = "~/mem/mem/root/",
+    store_path: str = "~/.claude/memory/root/",
 ) -> str:
     """检查某个失败模式是否需要升级。
 
@@ -295,7 +295,7 @@ def apply_escalation(
         level: "downweight" | "warning" | "block"
         target: 影响目标 — "memory:{id}" | "workflow:{name}" | "path:{description}"
         store: MemoryStore 实例（downweight memory 时必须）
-        warnings_dir: 告警目录（warning 级别，默认 ~/mem/mem/root/warnings/）
+        warnings_dir: 告警目录（warning 级别，默认 ~/.claude/memory/root/warnings/）
         blocked_paths_file: blocked-paths.md 路径（block 级别，默认 ~/.claude/docs/blocked-paths.md）
 
     Returns:
@@ -337,7 +337,7 @@ def _apply_downweight(pattern: str, target: str, store: Optional[MemoryStore]) -
 def _apply_warning(pattern: str, target: str, warnings_dir: Optional[str]) -> dict:
     """写入 warnings/{pattern}.md 告警文件。"""
     if warnings_dir is None:
-        warnings_dir = os.path.expanduser("~/mem/mem/root/warnings")
+        warnings_dir = os.path.expanduser("~/.claude/memory/root/warnings")
 
     dir_path = Path(os.path.expanduser(warnings_dir))
     dir_path.mkdir(parents=True, exist_ok=True)

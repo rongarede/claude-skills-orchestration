@@ -389,7 +389,7 @@ def route_output(
     """根据置信度决定输出目标。
 
     置信度分层：
-    - < 0.4  → memory（保存到 ~/mem/mem/shared/）
+    - < 0.4  → memory（保存到 ~/.claude/memory/shared/）
     - 0.4-0.7 → zettelkasten（Obsidian 笔记）
     - >= 0.7 → candidate（CLAUDE.md 候选规则）
 
@@ -405,7 +405,7 @@ def route_output(
     """
     if confidence < 0.4:
         dest = "memory"
-        target = os.path.expanduser("~/mem/mem/shared")
+        target = os.path.expanduser("~/.claude/memory/shared")
     elif confidence < 0.7:
         dest = "zettelkasten"
         target = zettelkasten_dir or os.path.expanduser(
@@ -414,7 +414,7 @@ def route_output(
         )
     else:
         dest = "candidate"
-        target = candidate_dir or os.path.expanduser("~/mem/mem/distilled")
+        target = candidate_dir or os.path.expanduser("~/.claude/memory/distilled")
 
     return OutputAction(
         knowledge=knowledge,
@@ -456,7 +456,7 @@ def execute_output(action: OutputAction) -> str:
     k = action.knowledge
 
     if action.destination == "memory":
-        out_dir = action.target_path or os.path.expanduser("~/mem/mem/shared")
+        out_dir = action.target_path or os.path.expanduser("~/.claude/memory/shared")
         os.makedirs(out_dir, exist_ok=True)
         path = os.path.join(out_dir, f"{k.id}.md")
         content = _render_memory(k)
@@ -473,7 +473,7 @@ def execute_output(action: OutputAction) -> str:
         content = _render_zettelkasten(k)
 
     elif action.destination == "candidate":
-        out_dir = action.target_path or os.path.expanduser("~/mem/mem/distilled")
+        out_dir = action.target_path or os.path.expanduser("~/.claude/memory/distilled")
         os.makedirs(out_dir, exist_ok=True)
         path = os.path.join(out_dir, f"{k.id}.md")
         content = _render_candidate(k)

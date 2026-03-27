@@ -52,7 +52,7 @@ def cmd_retrieve(args):
 
     # --cross-agent 模式：自动扫描所有 agent store
     if getattr(args, 'cross_agent', False):
-        agents_base = Path(os.path.expanduser("~/mem/mem/agents"))
+        agents_base = Path(os.path.expanduser("~/.claude/memory/agents"))
         stores = []
         if agents_base.exists():
             for store_path in sorted(agents_base.glob("*/*")):
@@ -711,7 +711,7 @@ def cmd_dashboard(args):
             print(b)
 
     # === 区域 2：触发规则效率 ===
-    trigger_stats_path = Path(os.path.expanduser("~/mem/mem/workflows/trigger-stats.json"))
+    trigger_stats_path = Path(os.path.expanduser("~/.claude/memory/workflows/trigger-stats.json"))
     if getattr(args, 'trigger_stats', None):
         trigger_stats_path = Path(args.trigger_stats)
     stats = get_all_stats(trigger_stats_path)
@@ -899,7 +899,7 @@ def cmd_distill(args):
 
     if args.all_agents:
         # 自动发现所有 agent store
-        base = os.path.expanduser("~/mem/mem/agents")
+        base = os.path.expanduser("~/.claude/memory/agents")
         stores = []
         if os.path.isdir(base):
             for type_dir in os.listdir(base):
@@ -1008,7 +1008,7 @@ def main():
         "--cross-agent",
         action="store_true",
         dest="cross_agent",
-        help="跨 Agent 模式：自动扫描 ~/mem/mem/agents/*/ 下所有 store 进行联合检索",
+        help="跨 Agent 模式：自动扫描 ~/.claude/memory/agents/*/ 下所有 store 进行联合检索",
     )
     p_retrieve.add_argument(
         "--stores",
@@ -1118,7 +1118,7 @@ def main():
     # ---- dashboard ----
     p_dashboard = subparsers.add_parser("dashboard", help="一站式系统健康概览")
     p_dashboard.add_argument("--trigger-stats", dest="trigger_stats", default=None,
-                             help="trigger-stats.json 路径（可选，默认 ~/mem/mem/workflows/trigger-stats.json）")
+                             help="trigger-stats.json 路径（可选，默认 ~/.claude/memory/workflows/trigger-stats.json）")
 
     # ---- repair ----
     p_repair = subparsers.add_parser("repair", help="扫描并报告损坏的记忆文件（YAML 解析失败）")

@@ -56,60 +56,60 @@ timestamp: 2026-03-14T22:00:00
 SCRIPT=~/.claude/skills/agent-memory/scripts/cli.py
 
 # 快速添加记忆
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu \
   quick-add --name "任务名" --description "描述" --type task --context "执行上下文" "正文内容"
 
 # 检索记忆
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu \
   retrieve --query "搜索关键词" --top-k 5
 
 # 快速添加（明确字段）
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu \
   add --subject "任务主题" --description "详细描述" --keywords "kw1,kw2" --importance 7
 
 # 反馈（手动正向）
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu \
   feedback --memory-id "mem_id" --useful
 
 # 反馈（手动负向）
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu \
   feedback --memory-id "mem_id" --not-useful
 
 # 反馈（自动推断）
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu \
   feedback --memory-id "mem_id" --auto --event task_success
 
 # 记忆去重合并
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu \
   consolidate --threshold 0.85 --dry-run
 
 # 列出记忆
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu list --limit 10
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu list --limit 10
 
 # 统计
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu stats
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu stats
 
 # 生成索引（增量，默认）
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu generate-index
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu generate-index
 
 # 生成索引（强制全量重建）
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu generate-index --force
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu generate-index --force
 
 # 修复损坏记忆文件（--fix 自动修复, --delete 删除无法修复项, --yes 跳过确认）
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu repair --fix --delete --yes
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu repair --fix --delete --yes
 
 # 一站式健康概览（blocked/warning/healthy 分布 + 衰减统计，--trigger-stats 附加触发效率）
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu dashboard --trigger-stats
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu dashboard --trigger-stats
 ```
 
 ## 路径约束
 
 | Agent | 正确路径 |
 |-------|---------|
-| tetsu | ~/mem/mem/agents/Worker/tetsu |
-| shin | ~/mem/mem/agents/Auditor/shin |
-| fumio | ~/mem/mem/agents/Weaver/fumio |
-| root | ~/mem/mem/agents/root |
+| tetsu | ~/.claude/memory/agents/Worker/tetsu |
+| shin | ~/.claude/memory/agents/Auditor/shin |
+| fumio | ~/.claude/memory/agents/Weaver/fumio |
+| root | ~/.claude/memory/agents/root |
 
 `--store` 参数优先于 `--agent` 推断的路径。
 
@@ -141,16 +141,16 @@ python3 -m pytest  # 491 tests, ~5s
 
 ```bash
 # 健康检查（--show-all 显示全部记忆，含 healthy 状态）
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu health-check --show-all
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu health-check --show-all
 
 # 触发追踪
-python3 $SCRIPT --agent tetsu --store ~/mem/mem/agents/Worker/tetsu trigger stats
+python3 $SCRIPT --agent tetsu --store ~/.claude/memory/agents/Worker/tetsu trigger stats
 
 # 记忆演化
-python3 $SCRIPT --store ~/mem/mem/agents/Worker/tetsu \
+python3 $SCRIPT --store ~/.claude/memory/agents/Worker/tetsu \
   evolve mem_xxxxx --context "新语境" --tags "tag1,tag2"
 
 # 跨 agent 联合检索（Round 4 新增）
 python3 $SCRIPT retrieve --cross-agent --query "搜索关键词" --top-k 5
-python3 $SCRIPT retrieve --stores "~/mem/mem/agents/Worker/tetsu,~/mem/mem/agents/Auditor/shin" --query "搜索关键词"
+python3 $SCRIPT retrieve --stores "~/.claude/memory/agents/Worker/tetsu,~/.claude/memory/agents/Auditor/shin" --query "搜索关键词"
 ```

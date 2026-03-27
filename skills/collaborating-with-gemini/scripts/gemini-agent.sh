@@ -17,7 +17,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILL_DIR="$(dirname "$SCRIPT_DIR")"
 SESSIONS_DIR="$SKILL_DIR/sessions"
-AGENTS_DIR="/Users/bit/.claude/agents"
+AGENTS_DIR="~/.claude/agents"
 
 # 确保 sessions 目录存在
 mkdir -p "$SESSIONS_DIR"

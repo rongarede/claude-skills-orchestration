@@ -30,7 +30,7 @@
 | **吞食者** | raiga | 吞食书籍/文档 → 产出 skill 和 CLAUDE.md 约束 | 内容消化与知识提炼 |
 | **织者** | fumio | 管理所有书籍、项目文件、文档 | 知识库组织 |
 | **母体** | norna | 创造与销毁 subagent | agent 生命周期管理 |
-| **梦者** | yume | 管理所有 agent 的记忆（~/mem/mem/） | 记忆系统唯一管理者 |
+| **梦者** | yume | 管理所有 agent 的记忆（~/.claude/memory/） | 记忆系统唯一管理者 |
 
 ## 生命周期管理
 
@@ -66,10 +66,10 @@ Memory Flush 自动触发事件（不依赖用户提醒）：
 | 触发事件 | 保存内容 | 保存到 |
 |----------|---------|--------|
 | Agent 完成任务 | 任务摘要 + 关键发现 | 对应 agent 的 store |
-| 重要架构决策 | 决策理由 + 备选方案 | `~/mem/mem/agents/root/` |
-| 用户反馈/纠正 | 反馈内容 + 行为修正 | `~/mem/mem/agents/root/` |
+| 重要架构决策 | 决策理由 + 备选方案 | `~/.claude/memory/agents/root/` |
+| 用户反馈/纠正 | 反馈内容 + 行为修正 | `~/.claude/memory/agents/root/` |
 | 话题切换 | 前一话题的工作摘要 | 对应 agent 的 store |
-| 会话即将结束 | 全会话工作总结 | `~/mem/mem/agents/root/` |
+| 会话即将结束 | 全会话工作总结 | `~/.claude/memory/agents/root/` |
 
 ### 5. 独立验证
 shin 审计 → tetsu 修复 → shin 重验。不信任 subagent 自报结果。
@@ -82,7 +82,7 @@ root 按影响程度分级决策：低影响直接做，中影响做后汇报，
 ### 目录结构
 
 ```
-~/mem/mem/
+~/.claude/memory/
 ├── agents/                    # subagent 记忆
 │   ├── Explore/
 │   │   ├── kaze/              # 记忆文件 + WhoAmI.md + feedback
@@ -175,7 +175,7 @@ scope: personal
 # 添加记忆（--agent 和 --store 必须在子命令 quick-add 之前，--keywords 必填）
 python3 scripts/cli.py \
   --agent shin \
-  --store ~/mem/mem/agents/Auditor/shin \
+  --store ~/.claude/memory/agents/Auditor/shin \
   quick-add \
   --name "审计结果" \
   --description "CLAUDE.md 审计通过" \
@@ -186,43 +186,43 @@ python3 scripts/cli.py \
 # 检索记忆
 python3 scripts/cli.py \
   --agent shin \
-  --store ~/mem/mem/agents/Auditor/shin \
+  --store ~/.claude/memory/agents/Auditor/shin \
   retrieve "审计" --top-k 5
 
 # 列出记忆
-python3 scripts/cli.py list --store ~/mem/mem/agents/Worker/tetsu
+python3 scripts/cli.py list --store ~/.claude/memory/agents/Worker/tetsu
 
 # 生成索引
-python3 scripts/cli.py generate-index --store ~/mem/mem/agents/Auditor/shin
+python3 scripts/cli.py generate-index --store ~/.claude/memory/agents/Auditor/shin
 
 # 统计
-python3 scripts/cli.py stats --store ~/mem/mem/agents/Worker/tetsu
+python3 scripts/cli.py stats --store ~/.claude/memory/agents/Worker/tetsu
 
 # 记忆去重合并（--dry-run 只预览，不实际合并）
-python3 scripts/cli.py consolidate --store ~/mem/mem/agents/Worker/tetsu --threshold 0.85 --dry-run
+python3 scripts/cli.py consolidate --store ~/.claude/memory/agents/Worker/tetsu --threshold 0.85 --dry-run
 
 # 反馈（自动推断，event 可为 task_success/task_failure/audit_pass/audit_fail）
 python3 scripts/cli.py \
   --agent tetsu \
-  --store ~/mem/mem/agents/Worker/tetsu \
+  --store ~/.claude/memory/agents/Worker/tetsu \
   feedback --memory-id "mem_id" --auto --event task_success
 
 # 健康检查（显示 blocked/warning/healthy 分布）
 python3 scripts/cli.py \
   --agent tetsu \
-  --store ~/mem/mem/agents/Worker/tetsu \
+  --store ~/.claude/memory/agents/Worker/tetsu \
   health-check
 
 # 触发追踪（查看/重置触发效率统计）
 python3 scripts/cli.py \
   --agent tetsu \
-  --store ~/mem/mem/agents/Worker/tetsu \
+  --store ~/.claude/memory/agents/Worker/tetsu \
   trigger stats
 
 # 一站式健康概览（blocked/warning/healthy 分布 + 衰减统计）
 python3 scripts/cli.py \
   --agent tetsu \
-  --store ~/mem/mem/agents/Worker/tetsu \
+  --store ~/.claude/memory/agents/Worker/tetsu \
   dashboard
 ```
 
@@ -272,17 +272,17 @@ python3 scripts/cli.py \
 
 | Agent | 正确路径 | 错误路径 |
 |-------|---------|---------|
-| tetsu | `~/mem/mem/agents/Worker/tetsu` | `~/mem/mem/agents/蚁工/tetsu` |
-| yomi | `~/mem/mem/agents/Analyst/yomi` | `~/mem/mem/agents/斥候/yomi` |
-| haku | `~/mem/mem/agents/Inspector/haku` | `~/mem/mem/agents/药师/haku` |
-| fumio | `~/mem/mem/agents/Weaver/fumio` | `~/mem/mem/agents/织者/fumio` |
-| kaze/mirin | `~/mem/mem/agents/Explore/{name}` | — |
-| shin | `~/mem/mem/agents/Auditor/shin` | — |
-| sora | `~/mem/mem/agents/Operator/sora` | — |
-| raiga | `~/mem/mem/agents/Devourer/raiga` | `~/mem/mem/agents/吞食者/raiga` |
-| norna | `~/mem/mem/agents/Matrix/norna` | `~/mem/mem/agents/母体/norna` |
-| yume | `~/mem/mem/agents/Dreamer/yume` | `~/mem/mem/agents/梦者/yume` |
-| root | `~/mem/mem/agents/root` | `~/mem/mem/root` |
+| tetsu | `~/.claude/memory/agents/Worker/tetsu` | `~/.claude/memory/agents/蚁工/tetsu` |
+| yomi | `~/.claude/memory/agents/Analyst/yomi` | `~/.claude/memory/agents/斥候/yomi` |
+| haku | `~/.claude/memory/agents/Inspector/haku` | `~/.claude/memory/agents/药师/haku` |
+| fumio | `~/.claude/memory/agents/Weaver/fumio` | `~/.claude/memory/agents/织者/fumio` |
+| kaze/mirin | `~/.claude/memory/agents/Explore/{name}` | — |
+| shin | `~/.claude/memory/agents/Auditor/shin` | — |
+| sora | `~/.claude/memory/agents/Operator/sora` | — |
+| raiga | `~/.claude/memory/agents/Devourer/raiga` | `~/.claude/memory/agents/吞食者/raiga` |
+| norna | `~/.claude/memory/agents/Matrix/norna` | `~/.claude/memory/agents/母体/norna` |
+| yume | `~/.claude/memory/agents/Dreamer/yume` | `~/.claude/memory/agents/梦者/yume` |
+| root | `~/.claude/memory/agents/root` | `~/.claude/memory/root` |
 
 ### 测试
 

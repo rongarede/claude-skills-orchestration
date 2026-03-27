@@ -9,7 +9,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BRIDGE_SCRIPT="$SCRIPT_DIR/codex_bridge.py"
-AGENTS_DIR="/Users/bit/.claude/agents"
+AGENTS_DIR="~/.claude/agents"
 
 # 解析参数
 TASK=""

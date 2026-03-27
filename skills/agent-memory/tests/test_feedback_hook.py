@@ -198,13 +198,13 @@ class TestCallFeedbackCli:
     def test_cli_not_exist_returns_false(self):
         """cli.py 不存在时返回 False，不 crash。"""
         with mock.patch.object(hook_module, "CLI_PATH", "/nonexistent/cli.py"):
-            result = hook_module.call_feedback_cli("tetsu", "~/mem/mem/agents/蚁工/tetsu", "mem_001")
+            result = hook_module.call_feedback_cli("tetsu", "~/.claude/memory/agents/蚁工/tetsu", "mem_001")
         assert result is False
 
     def test_timeout_protection(self):
         """subprocess.TimeoutExpired 时返回 False，不 block。"""
         with mock.patch("subprocess.run", side_effect=subprocess.TimeoutExpired(cmd="cli.py", timeout=3)):
-            result = hook_module.call_feedback_cli("tetsu", "~/mem/mem/agents/蚁工/tetsu", "mem_001")
+            result = hook_module.call_feedback_cli("tetsu", "~/.claude/memory/agents/蚁工/tetsu", "mem_001")
         assert result is False
 
     def test_command_construction(self):
@@ -219,7 +219,7 @@ class TestCallFeedbackCli:
             return mock_result
 
         with mock.patch("subprocess.run", side_effect=mock_run):
-            hook_module.call_feedback_cli("tetsu", "~/mem/mem/agents/蚁工/tetsu", "mem_test_001")
+            hook_module.call_feedback_cli("tetsu", "~/.claude/memory/agents/蚁工/tetsu", "mem_test_001")
 
         # 验证关键参数存在
         assert "feedback" in captured_cmd
@@ -235,7 +235,7 @@ class TestCallFeedbackCli:
         mock_result.returncode = 1
         mock_result.stderr = "some error"
         with mock.patch("subprocess.run", return_value=mock_result):
-            result = hook_module.call_feedback_cli("tetsu", "~/mem/mem/agents/蚁工/tetsu", "mem_001")
+            result = hook_module.call_feedback_cli("tetsu", "~/.claude/memory/agents/蚁工/tetsu", "mem_001")
         assert result is False
 
 

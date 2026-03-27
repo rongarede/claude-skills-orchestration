@@ -7,8 +7,8 @@ import os
 from pathlib import Path
 from datetime import datetime
 
-STATS_FILE = Path(os.path.expanduser("~/mem/mem/workflows/trigger-stats.json"))
-RUNS_DIR = Path(os.path.expanduser("~/mem/mem/workflows/runs"))
+STATS_FILE = Path(os.path.expanduser("~/.claude/memory/workflows/trigger-stats.json"))
+RUNS_DIR = Path(os.path.expanduser("~/.claude/memory/workflows/runs"))
 
 def main():
     # 统计

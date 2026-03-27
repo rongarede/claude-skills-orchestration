@@ -177,9 +177,9 @@ adjust_weight(rule, weight)
 
 | 路径 | 内容 |
 |------|------|
-| `~/mem/mem/agents/{Type}/{name}/` | 各 agent 记忆 |
-| `~/mem/mem/agents/root/` | root 主会话记忆 |
-| `~/mem/mem/shared/` | 跨 agent 共享记忆 |
-| `~/mem/mem/workflows/` | 工作流状态与模板 |
+| `~/.claude/memory/agents/{Type}/{name}/` | 各 agent 记忆 |
+| `~/.claude/memory/agents/root/` | root 主会话记忆 |
+| `~/.claude/memory/shared/` | 跨 agent 共享记忆 |
+| `~/.claude/memory/workflows/` | 工作流状态与模板 |
 | `~/.claude/memory/registry.json` | Agent 注册表 |
-| `~/mem/mem/workflows/trigger-stats.json` | 触发统计 |
+| `~/.claude/memory/workflows/trigger-stats.json` | 触发统计 |

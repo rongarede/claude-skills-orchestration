@@ -65,7 +65,7 @@ description: 经验积累与自我进化系统 — 观察模式，session 结束
 
 Observe 模式下：
 1. 生成经验摘要 → 展示给用户
-2. 自动由 yume 保存到 `~/mem/mem/agents/root/`
+2. 自动由 yume 保存到 `~/.claude/memory/agents/root/`
 3. 高优先级建议 → 自动提议写入 CLAUDE.md（root 自主判断后执行）
 4. 低优先级建议 → 记录到 memory，Sunday Rule 时集中处理
 

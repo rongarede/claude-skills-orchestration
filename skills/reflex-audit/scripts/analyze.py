@@ -7,8 +7,8 @@ import os
 import sys
 from pathlib import Path
 
-STATS_PATH = Path(os.path.expanduser("~/mem/mem/workflows/trigger-stats.json"))
-TRIGGER_MAP_SSOT = Path(os.path.expanduser("~/mem/mem/workflows/trigger-map.md"))
+STATS_PATH = Path(os.path.expanduser("~/.claude/memory/workflows/trigger-stats.json"))
+TRIGGER_MAP_SSOT = Path(os.path.expanduser("~/.claude/memory/workflows/trigger-map.md"))
 TRIGGER_MAP_RULES = Path(
     os.path.expanduser("~/.claude/rules/trigger-map.md")
 )

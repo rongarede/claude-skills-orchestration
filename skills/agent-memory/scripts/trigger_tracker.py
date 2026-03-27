@@ -4,7 +4,7 @@
 追踪 trigger-map 规则的触发结果（成功/失败/跳过），
 基于历史效率动态调整触发权重。
 
-数据存储：~/mem/mem/workflows/trigger-stats.json
+数据存储：~/.claude/memory/workflows/trigger-stats.json
 """
 import sys
 import os
@@ -16,7 +16,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import Optional
 
-DEFAULT_STATS_PATH = Path(os.path.expanduser("~/mem/mem/workflows/trigger-stats.json"))
+DEFAULT_STATS_PATH = Path(os.path.expanduser("~/.claude/memory/workflows/trigger-stats.json"))
 
 # 线程锁，用于基本的并发安全
 _lock = threading.Lock()

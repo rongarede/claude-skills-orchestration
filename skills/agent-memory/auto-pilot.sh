@@ -63,7 +63,7 @@ Execute this step using TDD approach:
 Working directory: $SCRIPT_DIR
 Use existing code in scripts/ and tests/ as reference.
 Do NOT modify already-completed steps.
-After completion, append a progress entry to the project log at /Users/bit/Obsidian/100_Projects/Active/Project_Associative_Memory/Associative_Memory_项目主页.md under '## 进度记录'."
+After completion, append a progress entry to the project log at ~/Obsidian/100_Projects/Active/Project_Associative_Memory/Associative_Memory_项目主页.md under '## 进度记录'."
 
     if claude -p "$PROMPT" \
         --dangerously-skip-permissions \

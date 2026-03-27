@@ -28,11 +28,11 @@ description: "反射系统 Fuzz 测试与迭代改进。触发词：/reflex-fuzz
 
 kaze 读取以下文件，输出现状 + 问题列表：
 
-- `~/mem/mem/workflows/trigger-stats.json` — 全量统计
+- `~/.claude/memory/workflows/trigger-stats.json` — 全量统计
 - `~/.claude/hooks/post-agent-trigger-stats.py` — 实现逻辑
 - `~/.claude/hooks/pre-agent-cb-check.py` — CB 拦截逻辑
 - `~/.claude/hooks/reflex-config.json` — 共享配置
-- `~/mem/mem/workflows/trigger-map.md` — SSOT 转移规则
+- `~/.claude/memory/workflows/trigger-map.md` — SSOT 转移规则
 
 输出格式：
 ```
@@ -97,13 +97,13 @@ git add <files> && git commit -m "fix: {修复描述}" && git push
 保存 workflow run：
 ```bash
 python3 ~/.claude/skills/agent-memory/scripts/cli.py \
-  --agent root --store ~/mem/mem/agents/root \
+  --agent root --store ~/.claude/memory/agents/root \
   quick-add --name "Fuzz Round N: {问题}" \
   --description "{一句话}" --type task \
   --keywords "fuzz,roundN,{问题标签}" "{详细内容}"
 ```
 
-创建 `~/mem/mem/workflows/runs/YYYY-MM-DD-fuzz-roundN.md`
+创建 `~/.claude/memory/workflows/runs/YYYY-MM-DD-fuzz-roundN.md`
 
 ## 测试用例分类
 
@@ -136,13 +136,13 @@ python3 ~/.claude/skills/agent-memory/scripts/cli.py \
 
 | 文件 | 用途 |
 |------|------|
-| `~/mem/mem/workflows/trigger-stats.json` | 反射统计 + CB + recovery |
+| `~/.claude/memory/workflows/trigger-stats.json` | 反射统计 + CB + recovery |
 | `~/.claude/hooks/post-agent-trigger-stats.py` | 统计 hook 逻辑 |
 | `~/.claude/hooks/pre-agent-cb-check.py` | CB 拦截 hook |
 | `~/.claude/hooks/reflex-config.json` | 共享配置 |
-| `~/mem/mem/workflows/trigger-map.md` | SSOT 转移规则 |
+| `~/.claude/memory/workflows/trigger-map.md` | SSOT 转移规则 |
 | `~/.claude/rules/trigger-map.md` | 自动加载副本 |
-| `~/mem/mem/workflows/runs/*.md` | 历史 workflow runs |
+| `~/.claude/memory/workflows/runs/*.md` | 历史 workflow runs |
 
 ## 约束
 
