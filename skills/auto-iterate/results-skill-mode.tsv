@@ -1,0 +1,5 @@
+commit	score	status	description
+f278ae2	9.03	keep	baseline (8-dim skill evaluation)
+b59aed2	9.12	keep	compress to 80 lines → conciseness 9→10
+b59aed2	9.12	discard	ceiling probe: add crash note to isolation (no score gain, evaluator maxed)
+b59aed2	9.12	discard	ceiling confirmed: all 8 dims at theoretical max (9.125), probe adding ref caused dead-ref penalty

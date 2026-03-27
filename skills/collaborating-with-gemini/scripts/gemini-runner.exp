@@ -1,0 +1,51 @@
+#!/usr/bin/expect -f
+# gemini-runner.exp - 使用 expect 处理 gemini 的非交互调用
+# 用法: gemini-runner.exp prompt_file [gemini_args...]
+
+# 设置超时（秒）
+set timeout 180
+
+# 获取 prompt 文件路径
+set prompt_file [lindex $argv 0]
+
+# 获取其余参数
+set gemini_args [lrange $argv 1 end]
+
+# 读取 prompt 内容
+if {[file exists $prompt_file]} {
+    set fp [open $prompt_file r]
+    set prompt_content [read $fp]
+    close $fp
+} else {
+    puts stderr "Error: Prompt file not found: $prompt_file"
+    exit 1
+}
+
+# 去除末尾换行
+set prompt_content [string trimright $prompt_content]
+
+# 构建完整命令
+set cmd [list gemini {*}$gemini_args $prompt_content]
+
+# 禁用日志输出到 stderr
+log_user 1
+
+# 启动 gemini
+spawn -noecho {*}$cmd
+
+# 等待输出完成
+expect {
+    eof {
+        # 正常结束
+    }
+    timeout {
+        puts stderr "\[TIMEOUT\] Gemini response timeout after ${timeout}s"
+        exit 124
+    }
+}
+
+# 获取退出状态
+catch wait result
+set exit_code [lindex $result 3]
+
+exit $exit_code

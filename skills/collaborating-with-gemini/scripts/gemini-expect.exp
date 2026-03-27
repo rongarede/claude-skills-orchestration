@@ -1,0 +1,32 @@
+#!/usr/bin/expect -f
+# gemini-expect.exp - 使用 expect 处理 gemini 的非交互调用
+# 用法: gemini-expect.exp "prompt" [options...]
+
+set timeout 120
+set prompt [lindex $argv 0]
+set args [lrange $argv 1 end]
+
+# 构建命令
+set cmd "gemini"
+foreach arg $args {
+    append cmd " $arg"
+}
+append cmd " \"$prompt\""
+
+# 启动 gemini
+spawn -noecho {*}[list gemini {*}$args $prompt]
+
+# 等待输出完成
+expect {
+    eof {
+        # 正常结束
+    }
+    timeout {
+        send_user "\n\[TIMEOUT\] Gemini 响应超时\n"
+        exit 1
+    }
+}
+
+# 获取退出状态
+catch wait result
+exit [lindex $result 3]
